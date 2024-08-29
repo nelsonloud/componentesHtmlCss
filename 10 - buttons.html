@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <title>Carousel Component</title>
+
+    <style>
+      /*
+        SPACING SYSTEM (px)
+        2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+        FONT SIZE SYSTEM (px)
+        10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+      */
+
+      /*
+        MAIN COLOR: #087f5b
+        GREY COLOR: #343a40
+      */
+
+        * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      }
+
+      html {
+          /* font-size: 10px; */
+          /* 10px / 16px = 0.625 = 62.5% */
+          /* Percentage of user's browser font-size setting */
+          font-size: 62.5%;
+          overflow-x: hidden;
+          
+          /* does NOT work on safari
+          scroll-behavior: smooth; */
+      }
+
+      body {
+          font-family: "Rubik", sans-serif;
+          line-height: 1;
+          font-weight: 400;
+          color: #555;
+          
+          /* Only works if there is nothing absolutely positioned in relation to body */   
+          overflow-x: hidden;
+      }
+
+      .container {
+        width: 80rem;
+        height: 80rem;
+        margin: 0 auto;
+        background-color: #eeeeee;
+      }
+
+      p {
+        font-size: 2.4rem;
+        padding-top: 4.8rem;
+        text-align: center;
+
+      }
+
+      .buttons-container {
+        margin-top: 3.2rem;
+        padding: 0 1.6rem;
+        display: flex;
+        gap: 2rem;
+      }
+
+      /* Common buttons */
+
+      .btn-cm {
+        border: none;
+        font-family: inherit;
+        font-size: 1.4rem;
+        padding: 1.2rem 1.4rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .btn-cm:focus,
+      .btn:focus {
+        outline: none;
+        box-shadow: 0 0 0 0.4rem rgba(160, 160, 160, 0.5);
+      }
+
+      .btn-cm--primary {
+        background-color: #007BFF;
+        color: #fff;
+      }
+
+      .btn-cm--primary:hover,
+      .btn-cm--primary:active       {
+        background-color: #0069d9;
+      }
+
+      .btn-cm--secondary {
+        background-color: #6c757d;
+        color: #fff;
+      }
+
+      .btn-cm--secondary:hover,
+      .btn-cm--secondary:active       {
+        background-color: #5a6268;
+      }
+
+      .btn-cm--success {
+        background-color: #28a745;
+        color: #fff;
+      }
+
+      .btn-cm--success:hover,
+      .btn-cm--success:active       {
+        background-color: #218838;
+      }
+
+      .btn-cm--danger {
+        background-color: #dc3545;
+        color: #fff;
+      }
+
+      .btn-cm--danger:hover,
+      .btn-cm--danger:active       {
+        background-color: #c82333;
+      }
+
+      .btn-cm--warning {
+        background-color: #ffc107;
+        color: #000;
+      }
+
+      .btn-cm--warning:hover,
+      .btn-cm--warning:active       {
+        background-color: #e0a800;
+      }
+
+      .btn-cm--info {
+        background-color: #17a2b8;
+        color: #fff;
+      }
+
+      .btn-cm--info:hover,
+      .btn-cm--info:active       {
+        background-color: #138496;
+      }
+
+      .btn-cm--light {
+        background-color: #f8f9fa;
+        color: #000;
+      }
+
+      .btn-cm--light:hover,
+      .btn-cm--light:active       {
+        background-color: #e2e6ea;
+      }
+
+      .btn-cm--dark {
+        background-color: #343a40;
+        color: #fff;
+      }
+
+      .btn-cm--dark:hover,
+      .btn-cm--dark:active       {
+        background-color: #23272b;
+      }
+
+
+      .btn-cm--outline-primary {
+        color: #007BFF;
+        border: 1px solid #007BFF;
+      }
+
+      .btn-cm--outline-primary:hover,
+      .btn-cm--outline-primary:active {
+        color: #fff;
+        background-color: #007BFF;
+      }
+
+      .btn-cm--outline-secondary {
+        color: #5a6268;
+        border: 1px solid #5a6268;
+      }
+
+      .btn-cm--outline-secondary:hover,
+      .btn-cm--outline-secondary:active {
+        color: #fff;
+        background-color: #5a6268;
+      }
+
+      .btn-cm--outline-success {
+        color: #28a745;
+        border: 1px solid #28a745;
+      }
+
+      .btn-cm--outline-success:hover,
+      .btn-cm--outline-success:active {
+        color: #fff;
+        background-color: #28a745;
+      }
+
+      .btn-cm--outline-danger {
+        color: #dc3545;
+        border: 1px solid #dc3545;
+      }
+
+      .btn-cm--outline-danger:hover,
+      .btn-cm--outline-danger:active {
+        color: #fff;
+        background-color: #dc3545;
+      }
+
+      .btn-cm--outline-warning {
+        color: #ffc107;
+        border: 1px solid #ffc107;
+      }
+
+      .btn-cm--outline-warning:hover,
+      .btn-cm--outline-warning:active {
+        color: #000;
+        background-color: #ffc107;
+      }
+
+      .btn-cm--outline-info {
+        color: #17a2b8;
+        border: 1px solid #17a2b8;
+      }
+
+      .btn-cm--outline-info:hover,
+      .btn-cm--outline-info:active {
+        color: #fff;
+        background-color: #17a2b8;
+      }
+
+      .btn-cm--outline-light {
+        color: #f8f9fa;
+        border: 1px solid #f8f9fa;
+      }
+
+      .btn-cm--outline-light:hover,
+      .btn-cm--outline-light:active {
+        color: #000;
+        background-color: #f8f9fa;
+      }
+
+      .btn-cm--outline-dark {
+        color: #23272b;
+        border: 1px solid #23272b;
+      }
+
+      .btn-cm--outline-dark:hover,
+      .btn-cm--outline-dark:active {
+        color: #fff;
+        background-color: #23272b;
+      }
+
+
+     /*  Anchor buttons */
+
+      .btn:link,
+      .btn:visited {
+        display: inline-block;
+        font-size: 1.4rem;
+        color: #fff;
+        text-decoration: none;
+        padding: 1.2rem 1.4rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s;
+      }
+
+      .btn--primary {
+        background-color: #007BFF;
+      }
+      
+      .btn--primary:hover,
+      .btn--primavry:active {
+        background-color: #0069d9;
+      }
+
+      .btn--secondary {
+        background-color: #6c757d;
+      }
+
+      .btn--secondary:hover,
+      .btn-secondary:active {
+        background-color: #5a6268;
+      }
+
+      .btn--success {
+        background-color: #28a745;
+      }
+
+      .btn--success:hover,
+      .btn--success:active {
+        background-color: #218838;
+      }
+
+      .btn--danger {
+        background-color: #dc3545;
+      }
+
+      .btn--danger:hover,
+      .btn--danfer:active {
+        background-color: #c82333;
+      }
+
+      .btn.btn--warning {
+        color: #000;
+        background-color: #ffc107;
+      }
+
+      .btn--warning:hover,
+      .btn--warning:active {
+        background-color: #e0a800;
+      }
+
+      .btn--info {
+        background-color: #17a2b8
+      }
+
+      .btn--info:hover,
+      .btn--info:active
+       {
+        background-color: #138496
+      }
+
+      .btn.btn--light {
+        color: #212529;
+        background-color: #f8f9fa;
+      }
+
+      .btn--light:hover,
+      .btn--light:active {
+        background-color: #e2e6ea;
+      }
+
+      .btn--dark {
+        background-color: #343a40;
+      }
+
+      .btn--dark:hover,
+      .btn--dark:active
+       {
+        background-color: #23272b;
+      }
+
+      .btn--outline-primary:link,
+      .btn--outline-primary:visited {
+        color: #007BFF;
+        border: 1px solid #007BFF;
+      }
+
+      .btn--outline-primary:hover,
+      .btn--outline-primary:active {
+        color: #fff;
+        background-color: #007BFF;
+      }
+
+      .btn--outline-secondary:link,
+      .btn--outline-secondary:visited {
+        color: #5a6268;
+        border: 1px solid #5a6268;
+      }
+
+      .btn--outline-secondary:hover,
+      .btn--outline-secondary:active {
+        color: #fff;
+        background-color: #5a6268;
+      }
+
+      .btn--outline-success:link,
+      .btn--outline-success:visited {
+        color: #28a745;
+        border: 1px solid #28a745;
+      }
+
+      .btn--outline-success:hover,
+      .btn--outline-success:active {
+        color: #fff;
+        background-color: #28a745;
+      }
+
+      .btn--outline-danger:link,
+      .btn--outline-danger:visited {
+        color: #dc3545;
+        border: 1px solid #dc3545;
+      }
+
+      .btn--outline-danger:hover,
+      .btn--outline-danger:active {
+        color: #fff;
+        background-color: #dc3545;
+      }
+
+      .btn--outline-warning:link,
+      .btn--outline-warning:visited {
+        color: #ffc107;
+        border: 1px solid #ffc107;
+      }
+
+      .btn--outline-warning:hover,
+      .btn--outline-warning:active {
+        color: #000;
+        background-color: #ffc107;
+      }
+
+      .btn--outline-info:link,
+      .btn--outline-info:visited {
+        color: #17a2b8;
+        border: 1px solid #17a2b8;
+      }
+
+      .btn--outline-info:hover,
+      .btn--outline-info:active {
+        color: #fff;
+        background-color: #17a2b8;
+      }
+
+      .btn--outline-light:link,
+      .btn--outline-light:visited {
+        color: #f8f9fa;
+        border: 1px solid #f8f9fa;
+      }
+
+      .btn--outline-light:hover,
+      .btn--outline-light:active {
+        color: #000;
+        background-color: #f8f9fa;
+      }
+
+      .btn--outline-dark:link,
+      .btn--outline-dark:visited {
+        color: #23272b;
+        border: 1px solid #23272b;
+      }
+
+      .btn--outline-dark:hover,
+      .btn--outline-dark:active {
+        color: #fff;
+        background-color: #23272b;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <p>Common buttons</p>
+      <div class="buttons-container">
+        <button class="btn-cm btn-cm--primary">Primary</button>
+        <button class="btn-cm btn-cm--secondary">Secondary</button>
+        <button class="btn-cm btn-cm--success">Success</button>
+        <button class="btn-cm btn-cm--danger">Danger</button>
+        <button class="btn-cm btn-cm--warning">Warning</button>
+        <button class="btn-cm btn-cm--info">Info</button>
+        <button class="btn-cm btn-cm--light">Light</button>
+        <button class="btn-cm btn-cm--dark">Dark</button>
+      </div>
+      <div class="buttons-container">
+        <button class="btn-cm btn-cm--outline-primary">Primary</button>
+        <button class="btn-cm btn-cm--outline-secondary">Secondary</button>
+        <button class="btn-cm btn-cm--outline-success">Success</button>
+        <button class="btn-cm btn-cm--outline-danger">Danger</button>
+        <button class="btn-cm btn-cm--outline-warning">Warning</button>
+        <button class="btn-cm btn-cm--outline-info">Info</button>
+        <button class="btn-cm btn-cm--outline-light">Light</button>
+        <button class="btn-cm btn-cm--outline-dark">Dark</button>
+      </div>
+
+
+      <p>Anchor buttons</p>
+      <div class="buttons-container">
+        <a href="#" class="btn btn--primary">Primary</a>
+        <a href="#" class="btn btn--secondary">Secondary</a>
+        <a href="#" class="btn btn--success">Success</a>
+        <a href="#" class="btn btn--danger">Danger</a>
+        <a href="#" class="btn btn--warning">Warning</a>
+        <a href="#" class="btn btn--info">Info</a>
+        <a href="#" class="btn btn--light">Light</a>
+        <a href="#" class="btn btn--dark">Dark</a>
+      </div>
+      <div class="buttons-container">
+        <a href="#" class="btn btn--outline-primary">Primary</a>
+        <a href="#" class="btn btn--outline-secondary">Secondary</a>
+        <a href="#" class="btn btn--outline-success">Success</a>
+        <a href="#" class="btn btn--outline-danger">Danger</a>
+        <a href="#" class="btn btn--outline-warning">Warning</a>
+        <a href="#" class="btn btn--outline-info">Info</a>
+        <a href="#" class="btn btn--outline-light">Light</a>
+        <a href="#" class="btn btn--outline-dark">Dark</a>
+      </div>
+    </div>
+  </body>
+</html>

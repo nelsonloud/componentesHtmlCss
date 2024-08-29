@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <title>Carousel Component</title>
+
+    <style>
+      /*
+        SPACING SYSTEM (px)
+        2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+        FONT SIZE SYSTEM (px)
+        10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+      */
+
+      /*
+        MAIN COLOR: #087f5b
+        GREY COLOR: #343a40
+      */
+
+      * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    }
+
+    html {
+        /* font-size: 10px; */
+        /* 10px / 16px = 0.625 = 62.5% */
+        /* Percentage of user's browser font-size setting */
+        font-size: 62.5%;
+        overflow-x: hidden;
+        
+        /* does NOT work on safari
+        scroll-behavior: smooth; */
+    }
+
+    body {
+        font-family: "Rubik", sans-serif;
+        line-height: 1;
+        font-weight: 400;
+        color: #555;
+        
+        /* Only works if there is nothing absolutely positioned in relation to body */   
+        overflow-x: hidden;
+    }
+
+    .logo {
+      height: 3.2rem;
+    }
+
+    .container {
+    /* 1140px*/
+    max-width: 120rem;
+    padding: 0 3.2rem;
+    margin: 0 auto;
+
+    }
+
+    .grid {
+        display: grid;
+        column-gap: 6.4rem;
+        row-gap: 9.6rem;
+    }
+
+    .footer {
+      background-color: #f3f3f3;
+      padding: 12.8rem 0;
+      /* border-top: 1px solid #eee; */
+    }
+
+    .grid--footer {
+        grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr;
+    }
+
+    .logo-col {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footer-logo {
+        margin-top: -1.5rem;
+        display: block;
+        margin-bottom: 3.2rem;
+    }
+
+    .social-links {
+      list-style: none;
+      display: flex;
+      gap: 2.4rem; 
+    }
+
+    .social-icon {
+        height: 2.4rem;
+        width: 2.4rem;
+    }
+
+    .copyright {
+        font-size: 1.4rem;
+        line-height: 1.6rem;
+        color: #767676;
+        margin-top: auto;
+    }
+
+    .footer-heading {
+        font-size: 1.8rem;
+        font-weight: 500;
+        margin-bottom: 4rem;
+    }
+
+    .contacts {
+        font-style: normal;
+        font-size: 1.6rem;
+        line-height: 1.6rem;
+    }
+
+    .contacts p {
+        margin-top: 2.4rem;
+    }
+
+    .footer-nav {
+        list-style: none; 
+        display: flex;
+        flex-direction: column;
+        gap: 2.4rem;
+    }
+
+    .footer-link:link,
+    .footer-link:visited {
+        text-decoration: none;
+        font-size: 1.6rem;
+        color: #767676;
+        transition: all 0.3s;
+    }
+
+    .footer-link:hover,
+    .footer-link:active {
+        color: #555;
+    }
+
+    </style>
+  </head>
+  <body>
+    <footer class="footer">
+      <div class="container grid grid--footer">
+      <div class="logo-col">
+        <a href="#" class="footer-logo">
+        <img class="logo" src="corporate-eats-logo.png" alt="Omnifood logo">
+        </a>
+        <ul class="social-links">
+        <li><a href="#" class="footer-link"><ion-icon class="social-icon" name="logo-instagram"></ion-icon></a></li>
+        <li><a href="#" class="footer-link"><ion-icon class="social-icon" name="logo-facebook"></ion-icon></a></li>
+        <li><a href="#" class="footer-link"><ion-icon class="social-icon" name="logo-twitter"></ion-icon></a></li>
+        </ul>
+        <p class="copyright">Copyright &copy; <span class="year">2027</span> by CorporateEats, Inc. Todos os direitos reservados</p>
+      </div>
+      <div class="address-col">
+        <p class="footer-heading">Contacto</p>
+          <address class="contacts">
+          <p>Rua das Empresas, nº 1234, Edifício Corporativo, Cidade Empresarial, CP 54321</p>
+          <p><a class="footer-link" href="tel:415-201-6370">415-201-6370</a><br>
+          <a class="footer-link" href="mailto:geral@corporateeats.com">geral@corporateeats.com</a>
+          </p>
+        </address>
+      </div>
+      <nav class="nav-col">
+        <p class="footer-heading">Conta</p>
+        <ul class="footer-nav">
+          <li><a class="footer-link" href="#">Criar uma conta</a></li>
+          <li><a class="footer-link" href="#">Entrar</a></li>
+          <li><a class="footer-link" href="#">iOS app</a></li>
+          <li><a class="footer-link" href="#">Android app</a></li>
+        </ul>
+      </nav>
+      <nav class="nav-col">
+        <p class="footer-heading">Empresa</p>
+        <ul class="footer-nav">
+          <li><a class="footer-link" href="#">Sobre nós</a></li>
+          <li><a class="footer-link" href="#">Negócios</a></li>
+          <li><a class="footer-link" href="#">Pareceiros</a></li>
+          <li><a class="footer-link" href="#">Carreiras</a></li>
+        </ul>
+      </nav>
+        <nav class="nav-col">
+          <p class="footer-heading">Recursos</p>
+          <ul class="footer-nav">
+            <li><a class="footer-link" href="#">Repositório de receitas</a></li>
+            <li><a class="footer-link" href="#">Ajuda</a></li>
+            <li><a class="footer-link" href="#">Termos e privacidade</a></li>
+          </ul>
+        </nav>
+      </div>
+      </footer>
+  </body>
+</html>
